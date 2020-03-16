@@ -1,65 +1,282 @@
-<!DOCTYPE html>
-<html>
-  <head>
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <!-- Metadata -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
-
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, shrink-to-fit=yes, user-scalable=no">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="manifest" href="manifest.json">">
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src * data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+    <!-- Initialization of scripts -->
+    <script src="lib/onsenui/js/onsenui.min.js"></script>
+    <title>TriLUX</title>
+    <script src="https://unpkg.com/jquery/dist/jquery.min.js"></script>
+    <script src="https://unpkg.com/jquery-rss/dist/jquery.rss.min.js"></script>
     <!-- update the version number as needed -->
-    <script defer src="/__/firebase/7.11.0/firebase-app.js"></script>
+    <script src="/__/firebase/7.11.0/firebase-app.js"></script>
     <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/7.11.0/firebase-auth.js"></script>
-    <script defer src="/__/firebase/7.11.0/firebase-database.js"></script>
-    <script defer src="/__/firebase/7.11.0/firebase-messaging.js"></script>
-    <script defer src="/__/firebase/7.11.0/firebase-storage.js"></script>
+    <script src="/__/firebase/7.11.0/firebase-auth.js"></script>
+    <script src="/__/firebase/7.11.0/firebase-database.js"></script>
     <!-- initialize the SDK after all desired features are loaded -->
-    <script defer src="/__/firebase/init.js"></script>
+    <script src="/__/firebase/init.js"></script>
 
-    <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
-      }
-    </style>
-  </head>
-  <body>
-    <div id="message">
-      <h2>Welcome</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
-    </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
+    <!-- firebaseUI -->
+    <script src="https://cdn.firebase.com/libs/firebaseui/4.0.0/firebaseui.js"></script>
+    <script type="text/javascript" src="js/firebase.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css"/>
+    <link rel="stylesheet" type="text/css" href="https://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css"/>
+    <link rel="stylesheet" href="lib/onsenui/css/onsenui.css">
+    <link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css">
+    <link rel="stylesheet" href="css/style.css">
 
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+        ons.ready(function () {
+            console.log("UI is ready");
+        });
+        window.fn = {};
+        window.fn.toggleMenu = function () {
+            document.getElementById('appSplitter').right.toggle();
+        };
 
-        try {
-          let app = firebase.app();
-          let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
-          document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-          console.error(e);
-          document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
-        }
-      });
+        window.fn.loadView = function (index) {
+            document.getElementById('appTabbar').setActiveTab(index);
+        };
+
+        window.fn.loadLink = function (url) {
+            window.open(url, '_blank');
+        };
+
+        window.fn.pushPage = function (page, anim) {
+            if (anim) {
+                document.getElementById('appNavigator').pushPage(page.id, {data: {title: page.title}, animation: anim});
+            } else {
+                document.getElementById('appNavigator').pushPage(page.id, {data: {title: page.title}});
+            }
+        };
     </script>
-  </body>
+<body>
+<ons-navigator animation="fade" id="appNavigator" page="login.html" swipeable swipe-target-width="80px">
+</ons-navigator>
+
+<template id="login.html">
+    <ons-page>
+        <div id="login" style="text-align: center; margin-top: 200px">
+            <h1>Sign Up/Log In</h1>
+            <div id="firebaseui-auth-container"></div>
+            <div id="loader">Loading...</div>
+        </div>
+        <script>
+            let ui = new firebaseui.auth.AuthUI(firebase.auth());
+            let uiConfig = {
+                callbacks: {
+                    signInSuccessWithAuthResult: function (authResult, redirectUrl) {
+                        // User successfully signed in.
+                        // Return type determines whether we continue the redirect automatically
+                        // or whether we leave that to developer to handle.
+                        return false;
+                    },
+                    uiShown: function () {
+                        // The widget is rendered.
+                        // Hide the loader.
+                        document.getElementById('loader').style.display = 'none';
+                    }
+                },
+                // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
+                signInFlow: 'popup',
+                signInSuccessUrl: '',
+                signInOptions: [
+                    // Leave the lines as is for the providers you want to offer your users.
+                    {
+                        provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+                        scopes: [
+                            'email',
+                            'profile'
+                        ],
+                        customParameters: {
+                            // Forces account selection even when one account
+                            // is available.
+                            prompt: 'select_account'
+                        }
+                    },
+                    // firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+                    // firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+                    // firebase.auth.GithubAuthProvider.PROVIDER_ID,
+                    firebase.auth.EmailAuthProvider.PROVIDER_ID
+                    // firebase.auth.PhoneAuthProvider.PROVIDER_ID
+                ],
+                // Terms of service url.
+                tosUrl: '<your-tos-url>',
+                // Privacy policy url.
+                privacyPolicyUrl: '<your-privacy-policy-url>'
+            };
+            window.addEventListener('load', function () {
+                if (typeof user === 'undefined' || user === null || !user) {
+                    ui.start('#firebaseui-auth-container', uiConfig);
+                } else {
+                    const navigator = document.querySelector('#appNavigator');
+                    navigator.resetToPage('main.html');
+                }
+            });
+        </script>
+    </ons-page>
+</template>
+
+<template id="main.html">
+    <ons-page>
+        <ons-splitter id="appSplitter">
+            <ons-splitter-content page="tabbar.html"></ons-splitter-content>
+        </ons-splitter>
+    </ons-page>
+</template>
+
+<template id="tabbar.html">
+    <ons-page id="tabbar-page">
+        <ons-toolbar>
+            <div class="center">Home</div>
+        </ons-toolbar>
+        <ons-tabbar swipeable id="appTabbar" position="auto">
+            <ons-tab label="Home" icon="fa-home" page="home.html" active></ons-tab>
+            <ons-tab label="Settings" icon="fa-cogs" page="settings.html"></ons-tab>
+        </ons-tabbar>
+        <script>
+            ons.getScriptPage().addEventListener('prechange', function (event) {
+                if (event.target.matches('#appTabbar')) {
+                    event.currentTarget.querySelector('ons-toolbar .center').innerHTML = event.tabItem.getAttribute('label');
+                }
+            });
+        </script>
+    </ons-page>
+</template>
+
+<template id="home.html">
+    <ons-page>
+        <ons-card onclick="">
+            <div class="title">Birva</div>
+            <div class="content">Blue - Online</div>
+        </ons-card>
+        <ons-card onclick="">
+            <div class="title">Durva</div>
+            <div class="content">Red - Online</div>
+        </ons-card>
+        <ons-card onclick="">
+            <div class="title">Shiv</div>
+            <div class="content">Green - Offline</div>
+        </ons-card>
+        <style>
+            .intro {
+                text-align: center;
+                padding: 0 20px;
+                margin-top: 40px;
+            }
+
+            ons-card {
+                cursor: pointer;
+                color: #333;
+            }
+
+            .card__title,
+            .card--material__title {
+                font-size: 20px;
+            }
+        </style>
+    </ons-page>
+</template>
+
+<template id="settings.html">
+    <ons-page id="settings">
+        <div style="text-align: center;" id="profile">
+            <br/>
+            <img style="border-radius: 50%" id="profilePicture" src=""/>
+            <br/>
+            <h1 style="background-color:#00ce0a;" id="name"></h1>
+            <h2 id="email"></h2>
+        </div>
+        <ons-list>
+            <ons-list-header>Default Mode</ons-list-header>
+            <ons-list-item>
+                <div class="center">
+                    <ons-select id="select-input" style="width: 120px">
+                        <option value="off">
+                            Off
+                        </option>
+                        <option value="custom">
+                            Custom Color
+                        </option>
+                        <option value="cycle">
+                            Cycle Colors
+                        </option>
+                    </ons-select>
+
+                </div>
+                <div class="right right-label">
+                    <input type="color" id="custom-color" name="custom-color"
+                           value="" hidden>
+                    <label id="custom-color-id" for="custom-color" hidden>Choose a color!</label>
+                </div>
+            </ons-list-item>
+            <ons-list-item id="brightness">
+                Brightness:
+                <ons-row>
+                    <ons-col width="40px" style="text-align: center; line-height: 31px;">
+                        <ons-icon icon="md-volume-down"></ons-icon>
+                    </ons-col>
+                    <ons-col>
+                        <ons-range id="range-slider" value="25" style="width: 100%;"></ons-range>
+                    </ons-col>
+                    <ons-col width="40px" style="text-align: center; line-height: 31px;">
+                        <ons-icon icon="md-volume-up"></ons-icon>
+                    </ons-col>
+                </ons-row>
+            </ons-list-item>
+        </ons-list>
+        <br/>
+        <ons-button onclick="savePrefs()" modifier="large">Save</ons-button>
+        <br/>
+        <br/>
+        <ons-button onclick="logOut()" modifier="large">Logout</ons-button>
+
+        <script>
+            ons.getScriptPage().onInit = function () {
+                if (ons.platform.isAndroid()) {
+                    const inputItems = document.querySelectorAll('.input-items');
+                    for (i = 0; i < inputItems.length; i++) {
+                        inputItems[i].hasAttribute('modifier') ?
+                            inputItems[i].setAttribute('modifier', inputItems[i].getAttribute('modifier') + ' nodivider') :
+                            inputItems[i].setAttribute('modifier', 'nodivider');
+                    }
+                }
+                document.getElementById('select-input').addEventListener('change', function (event) {
+                    if (event.target.value === "custom") {
+                        document.getElementById('custom-color').hidden = false;
+                        document.getElementById('custom-color-id').hidden = false;
+                    } else {
+                        document.getElementById('custom-color').hidden = true;
+                        document.getElementById('custom-color-id').hidden = true;
+                    }
+                });
+                document.getElementById('range-slider').addEventListener('input', function (event) {
+                    document.getElementById('volume-value').innerHTML = `&nbsp;${event.target.value}`;
+                    if (event.target.value > 80) {
+                        document.getElementById('careful-message').style.display = 'inline-block';
+                    } else {
+                        document.getElementById('careful-message').style.display = 'none';
+                    }
+                })
+            }
+        </script>
+
+        <style>
+            .right-icon {
+                margin-left: 10px;
+            }
+
+            .right-label {
+                color: #666;
+            }
+        </style>
+    </ons-page>
+</template>
+</body>
 </html>

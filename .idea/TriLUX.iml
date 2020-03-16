@@ -8,5 +8,15 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="jquery.rss" level="application" />
+    <orderEntry type="library" name="firebase" level="application" />
+    <orderEntry type="library" name="firebase-analytics" level="application" />
+    <orderEntry type="library" name="firebase-app" level="application" />
+    <orderEntry type="library" name="firebase-auth" level="application" />
+    <orderEntry type="library" name="firebase-database" level="application" />
+    <orderEntry type="library" name="firebase-functions" level="application" />
+    <orderEntry type="library" name="firebaseui" level="application" />
+    <orderEntry type="library" name="onsenui" level="application" />
+    <orderEntry type="library" name="jquery" level="application" />
   </component>
 </module>
